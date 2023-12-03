@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres
+    container_name: weather_analyser_db
+    ports:
+      - '5432:5432'
+    networks:
+      - my_network
+
+  postgres-test:
+    build:
+      context: .
+      dockerfile: Dockerfile-postgres-test
+    container_name: weather_analyser_db_test
+    ports:
+      - "5433:5432"
+    networks:
+      - my_network
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-app
+    container_name: weather_analyser_test
+    environment:
+      SPRING_PROFILES_ACTIVE: test
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/weather_analyser
+      SPRING_DATASOURCE_USERNAME: weather_analyser_manager
+      SPRING_DATASOURCE_PASSWORD: manager
+      SPRING_DATASOURCE_TEST_URL: jdbc:postgresql://postgres-test:5432/weather_analyser_test
+      SPRING_DATASOURCE_TEST_USERNAME: postgres
+      SPRING_DATASOURCE_TEST_PASSWORD: postgres
+      SERVER_PORT: 8052
+      LOCATION: Minsk
+      SCHEDULED_UPDATE: 3600000
+    ports:
+      - "8080:8052"
+    depends_on:
+      - postgres
+      - postgres-test
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge

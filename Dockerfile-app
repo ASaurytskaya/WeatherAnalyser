@@ -1,0 +1,20 @@
+FROM maven:3.9.1-eclipse-temurin-17 AS build
+WORKDIR /build
+COPY . /build
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:17-jammy
+
+WORKDIR /app
+
+COPY --from=build /build/target/weather_analyser-1.0-SNAPSHOT.jar /app
+
+EXPOSE 8052
+
+ENV SPRING_PROFILES_ACTIVE=prod
+
+HEALTHCHECK --interval=30s --timeout=30s CMD wget -q --spider http://localhost:8052/actuator/health || exit 1
+
+CMD ["java", "-jar", "weather_analyser-1.0-SNAPSHOT.jar"]
+
+LABEL name=weather_analyser:2

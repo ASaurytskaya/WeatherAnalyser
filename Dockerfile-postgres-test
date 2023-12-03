@@ -1,0 +1,11 @@
+FROM postgres:alpine
+LABEL name=weather_analyser_db_test:2
+
+EXPOSE 5432
+
+ENV POSTGRES_DB=weather_analyser_test
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+
+COPY postgres.sql.ddl/init_test.sql /docker-entrypoint-initdb.d/
+VOLUME /var/lib/postgresql/data

@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_TEST_URL}
+    username: ${SPRING_DATASOURCE_TEST_USERNAME}
+    password: ${SPRING_DATASOURCE_TEST_URL}
+    hikari:
+      min-idle: 3
+      maximum-pool-size: 6
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    properties:
+      hibernate:
+        default_schema: app
+        ddl-auto: update
+    show-sql: true
