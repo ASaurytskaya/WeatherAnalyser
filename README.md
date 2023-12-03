@@ -68,5 +68,5 @@ The following technologies/frameworks were used in this project:
 3. Set up environmental  variables in compose.yaml file.
 4. Run application: 
 
-         # docker compose up`
+         # docker compose up
  
