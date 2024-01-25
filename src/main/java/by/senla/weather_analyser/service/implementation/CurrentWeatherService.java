@@ -23,16 +23,17 @@ import java.util.UUID;
 
 @Service
 public class CurrentWeatherService implements ICurrentWeatherService {
-    private static final String API_KEY = "c099b7f519msh246359e17ca184ap1b00b4jsn7687b9527026";
-    private static final String API_HOST = "weatherapi-com.p.rapidapi.com";
-
-    private static final Logger logger = LoggerFactory.getLogger(CurrentWeatherService.class);
 
     @Value("${app.location}")
     private String location;
 
-    private ICurrentWeatherDao currentWeatherDao;
-    private IWeatherApiClient weatherApiClient;
+    @Value("${app.api_key}")
+    private String apiKey;
+
+    private static final Logger logger = LoggerFactory.getLogger(CurrentWeatherService.class);
+
+    private final ICurrentWeatherDao currentWeatherDao;
+    private final IWeatherApiClient weatherApiClient;
 
     public CurrentWeatherService(ICurrentWeatherDao currentWeatherDao, IWeatherApiClient weatherApiClient) {
         this.currentWeatherDao = currentWeatherDao;
@@ -124,7 +125,7 @@ public class CurrentWeatherService implements ICurrentWeatherService {
         CurrentWeatherCreateDto createDto = null;
 
         try{
-            createDto = weatherApiClient.getCurrentWeather(location, API_KEY, API_HOST);
+            createDto = weatherApiClient.getCurrentWeather(location, apiKey);
             logger.debug("Fetched current weather data from the API: {}", createDto);
         } catch (FeignException e) {
             handleFeignException(e);

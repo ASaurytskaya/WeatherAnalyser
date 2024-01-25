@@ -43,7 +43,7 @@ public class CurrentWeatherServiceTest {
         Mockito.when(currentWeatherDao.findMostRecent(Mockito.any())).thenReturn(new PageImpl<>(Collections.singletonList(mockedEntity)));
 
         CurrentWeatherCreateDto mockedDto = new CurrentWeatherCreateDto();
-        Mockito.when(weatherApiClient.getCurrentWeather(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(mockedDto);
+        Mockito.when(weatherApiClient.getCurrentWeather(Mockito.anyString(), Mockito.anyString())).thenReturn(mockedDto);
 
         CurrentWeatherDto result = currentWeatherService.getLast();
 
@@ -68,7 +68,7 @@ public class CurrentWeatherServiceTest {
 
     @Test
     public void testExceptionHandling() {
-        Mockito.when(weatherApiClient.getCurrentWeather(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+        Mockito.when(weatherApiClient.getCurrentWeather(Mockito.anyString(), Mockito.anyString()))
                 .thenThrow(FeignException.class);
 
         assertThrows(Exception.class, () -> currentWeatherService.getLast());

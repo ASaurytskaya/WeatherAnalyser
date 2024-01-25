@@ -108,7 +108,7 @@ class HistoryWeatherServiceTest {
     @Test
     void testFetchDataAndSaveToDatabase() {
         LocalDate currentDate = LocalDate.now().minusDays(1);
-        Mockito.when(weatherApiClient.getWeatherHistory("Minsk", currentDate.toString(), API_KEY, API_HOST))
+        Mockito.when(weatherApiClient.getWeatherHistory("Minsk", currentDate.toString(), API_KEY))
                 .thenReturn(createMockCreateDto(currentDate));
 
         historyWeatherService.fetchDataAndSaveToDatabase();

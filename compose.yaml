@@ -25,9 +25,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-app
-    container_name: weather_analyser_test
+    container_name: weather_analyser
     environment:
-      SPRING_PROFILES_ACTIVE: test
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/weather_analyser
       SPRING_DATASOURCE_USERNAME: weather_analyser_manager
       SPRING_DATASOURCE_PASSWORD: manager
@@ -36,12 +36,25 @@ services:
       SPRING_DATASOURCE_TEST_PASSWORD: postgres
       SERVER_PORT: 8052
       LOCATION: Minsk
+      API_KEY: 725442cb2f254ade9ad92513242501
       SCHEDULED_UPDATE: 3600000
     ports:
       - "8080:8052"
     depends_on:
       - postgres
       - postgres-test
+    networks:
+      - my_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - spring-app
     networks:
       - my_network
 

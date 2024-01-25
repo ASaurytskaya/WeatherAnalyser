@@ -23,13 +23,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class HistoryWeatherService implements IHistoryWeatherService {
-    private static final String API_KEY = "c099b7f519msh246359e17ca184ap1b00b4jsn7687b9527026";
-    private static final String API_HOST = "weatherapi-com.p.rapidapi.com";
-
-    private static final Logger logger = LoggerFactory.getLogger(HistoryWeatherService.class);
 
     @Value("${app.location}")
     private String location;
+
+    @Value("${app.api_key}")
+    private String apiKey;
+
+    private static final Logger logger = LoggerFactory.getLogger(CurrentWeatherService.class);
 
     private final IHistoryWeatherDao historyWeatherDao;
     private final IWeatherApiClient weatherApiClient;
@@ -192,7 +193,7 @@ public class HistoryWeatherService implements IHistoryWeatherService {
         logger.info("Fetching history weather data from the API for location {} and date {}", location, formattedDate);
 
         try{
-            createDto = weatherApiClient.getWeatherHistory(location, formattedDate, API_KEY, API_HOST);
+            createDto = weatherApiClient.getWeatherHistory(location, formattedDate, apiKey);
         }  catch (FeignException e) {
             handleFeignException(e);
         }

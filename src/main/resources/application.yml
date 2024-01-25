@@ -20,6 +20,7 @@ server:
 
 app:
   location: ${LOCATION}
+  api_key: ${API_KEY}
 
 scheduled:
   task:
