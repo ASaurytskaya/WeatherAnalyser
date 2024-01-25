@@ -1,5 +1,3 @@
-
-## Title: 
 # Weather Analyzer
 
 ## Overview:
@@ -17,7 +15,7 @@ The application operates as follows:
 
 1. **Current Weather Endpoint:**
     
-        http://localhost:8052/api/v1/weather
+        http://localhost:8080/api/v1/weather
 
     - Response: Provides information about the current weather, reflecting the most up-to-date data stored in the service's database.
     - Information Included:
@@ -30,8 +28,8 @@ The application operates as follows:
 
 2. **Average Daily Temperature Endpoint:**
 
-        http://localhost:8052/api/v1/weather/history?from=2023-11-11&to=2023-11-15
-
+        http://localhost:8080/api/v1/weather/history?from=2023-11-11&to=2023-11-15
+    - Request parameters: Users should provide two dates in yyyy-MM-dd format to specify the period they are interested in. This period is inclusive of both the starting date ('from') and the ending date ('to').
     - Response: Calculates and provides information about the average daily temperature and other parameters based on stored historical data or the available information in the service.
     - User Interaction: Users can request information for a specified period. 
 
@@ -43,18 +41,18 @@ The application operates as follows:
 
 The following technologies/frameworks were used in this project:
         - Spring:
-            *Spring Boot;
             *Spring JPA;
+            *Spring Boot;
         - PostgreSQL;
         - Hibernate;
         - OpenFeign; 
         - Maven;
-        - Docker.
+        - Docker;
+        - Nginx.
 
 ### Prerequisites
 
 - Java 17 or higher
-- PostgreSQL database
 - Docker
 
 ## Installation
