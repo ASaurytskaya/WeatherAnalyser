@@ -40,15 +40,15 @@ The application operates as follows:
 - The system maintains a consistent city for weather inquiries.
 
 The following technologies/frameworks were used in this project:
-        - Spring:
-            *Spring JPA;
-            *Spring Boot;
-        - PostgreSQL;
-        - Hibernate;
-        - OpenFeign; 
-        - Maven;
-        - Docker;
-        - Nginx.
+- Spring:
+    * Spring JPA;
+    * Spring Boot;
+- PostgreSQL;
+- Hibernate;
+- OpenFeign; 
+- Maven;
+- Docker;
+- Nginx.
 
 ### Prerequisites
 
